@@ -77,6 +77,76 @@
         });
     }
 
+    function check_mobile() {
+        return parseInt(gm_js.is_mobile) === 1;
+    }
+
+    function carousel_swipe(li_array)
+    {
+        var is_mobile = check_mobile();
+        console.log(is_mobile);
+
+        if ( is_mobile === false )
+        {
+            return false;
+        }
+
+        var carousel = $('.gm_carousel_wrapper');
+
+        /* *************************************************
+         * - swipeleft triggers navigate to the next image.
+         * - swiperight find the previous image.
+         * *************************************************/
+        carousel.on('swipeleft', function () {
+            abortTimer();
+            swipe_click('right', li_array);
+        });
+
+        carousel.on('swiperight', function () {
+            abortTimer();
+            swipe_click('left', li_array);
+        });
+    }
+
+    function swipe_click(direction, li_array) {
+
+        var max_index = li_array.length -1;
+        var active = get_active_button();
+        var new_index = null;
+
+        var carousel_card = $('.gm_carousel_card');
+
+        switch (direction)
+        {
+            case 'right':
+                new_index = active +1;
+                direction = 'right';
+                break;
+            case 'left':
+                new_index = active -1;
+                direction = 'left';
+                break;
+        }
+
+        new_index = new_index > max_index ? 0 : new_index;
+        new_index = new_index < 0 ? max_index : new_index;
+
+        var content = carousel_card.find('.gm_card_content');
+
+        animate_card(content, direction, function () {
+
+            var new_content = li_array[new_index];
+
+            content.remove();
+
+            var new_content_card = '<div class="gm_card_content">' + new_content + '</div>';
+
+            carousel_card.append(new_content_card);
+
+            set_active_button(new_index);
+        });
+    }
+
     function animate_card(content, direction, callback) {
 
         var animate_rules;
@@ -138,11 +208,11 @@
     // Start the infinite loop
     var li_array = get_li_array();
     var delay = set_delay();
-    console.log(delay);
+
     var tid = setTimeout(function() { rotate_carousel(li_array); }, delay);
 
     // Navigate
     button_click(li_array);
-
+    carousel_swipe(li_array);
 
 })(jQuery);
