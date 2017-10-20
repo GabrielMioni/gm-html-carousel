@@ -84,7 +84,6 @@
     function carousel_swipe(li_array)
     {
         var is_mobile = check_mobile();
-        console.log(is_mobile);
 
         if ( is_mobile === false )
         {
