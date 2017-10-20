@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: GM Text Carousel
+Plugin Name: GM HTML Carousel
 Version: 1.0
 Plugin URI: http://gabrielmioni.com/
 Description: A simple HTML / text carousel with easy to use shortcodes.
