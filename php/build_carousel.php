@@ -6,16 +6,25 @@ class build_carousel
 {
     protected $carousel;
 
-    public function __construct(array $text_array)
+    public function __construct(array $text_array, array $attributes)
     {
-        $this->carousel = $this->build_carousel($text_array);
+        $this->carousel = $this->build_carousel($text_array, $attributes);
     }
 
-    protected function build_carousel( array $text_array )
+    protected function build_carousel( array $text_array, array $attributes )
     {
         $first_item = isset($text_array[0]) ? $text_array[0] : '';
 
-        $html  = '<div class="gm_carousel_wrapper">';
+        if ( ! empty($attributes) )
+        {
+            $height = $attributes['height'] . 'px';
+            $width  = $attributes['width'] . 'px';
+
+            $html  = "<div class='gm_carousel_wrapper' style='height:$height; width: $width;'>";
+        } else {
+            $html  = '<div class="gm_carousel_wrapper">';
+        }
+
         $html .= "<div class='gm_carousel_card'><div class='gm_card_content'>$first_item</div></div>";
 
         $html .= $this->build_dot_nav($text_array);

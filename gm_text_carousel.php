@@ -39,7 +39,7 @@ function gm_carousel_js() {
     wp_register_script( 'gm-carousel-js',  plugins_url( 'js/gm-carousel.js', __FILE__ ), array('jquery'), GM_CAROUSEL_VERSION, true );
 }
 
-add_shortcode('gm_carousel_text', 'carousel_text');
+add_shortcode('gm_carousel_item', 'carousel_text');
 function carousel_text( ) {
     // I am an empty callback and don't do anything :(
 }
@@ -47,21 +47,59 @@ function carousel_text( ) {
 add_shortcode('gm_carousel', 'carousel');
 function carousel( $atts, $content = null )
 {
+    $attributes = set_attributes($atts);
+
     wp_enqueue_style('gm-carousel-css');
     wp_enqueue_style('gm-font-awesome');
     wp_enqueue_script('gm-carousel-js');
 
     require_once('php/build_carousel.php');
 
-    $pattern = get_shortcode_regex();
+    $pattern = get_shortcode_regex(array('gm_carousel_item'));
     $matches = array();
     preg_match_all("/$pattern/s", $content, $matches);
 
     $text_array = isset( $matches[5] ) ? $matches[5] : array();
 
-    $build_carousel = new \gm_build\build_carousel($text_array);
+    $build_carousel = new \gm_build\build_carousel($text_array, $attributes);
 
     echo $build_carousel->return_ul_html();
 }
 
+function set_attributes($atts) {
+
+    $default = array();
+    $default['width'] = 600;
+    $default['height'] = 175;
+
+    if ( ! is_array($atts) ) {
+        return array();
+    }
+
+    if ( empty($atts) )
+    {
+        return array();
+    }
+
+    $atts = array_change_key_case((array)$atts, CASE_LOWER);
+    $attributes_out = array();
+
+    foreach ($atts as $key=>$value)
+    {
+        if ($key === 'height' || $key === 'width')
+        {
+            $attributes_out[$key] = intval($value);
+        }
+    }
+
+    if (! key_exists('height', $attributes_out)) {
+        $attributes_out['height'] = $default['height'];
+    }
+
+    if (! key_exists('width', $attributes_out)) {
+        $attributes_out['width'] = $default['width'];
+    }
+
+    return $attributes_out;
+}
 
