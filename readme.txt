@@ -13,8 +13,7 @@ A simple and flexible HTML / text carousel with easy to use shortcodes.
 
 == Description ==
 
-GM HTML Carousel creates a text or HTML carousel with infinite scrolling directly from your WordPress page. No messing
-with admin settings or entering content into a databse.
+GM HTML Carousel creates a text or HTML carousel with infinite scrolling directly from your WordPress page. No messing with admin settings or entering content into a databse.
 
 The carousel is implemented using simple shortcodes.
 
@@ -53,8 +52,7 @@ Here's a complete example:
     [gm_carousel_item]Well, two out of three ain't bad.[/gm_carousel_item]
 [/gm_carousel]
 
-So this carousel will be 175px tall, 600px wide and each carousel item will be displayed for 6 seconds before the next
-carousel item is displayed. The first carousel item has the word 'carousel' wrapped in a <b> tag and will show up bold.
+So this carousel will be 175px tall, 600px wide and each carousel item will be displayed for 6 seconds before the next carousel item is displayed. The first carousel item has the word 'carousel' wrapped in a <b> tag and will show up bold.
 
 == Changelog ==
 
@@ -64,4 +62,4 @@ carousel item is displayed. The first carousel item has the word 'carousel' wrap
 == Upgrade Notice ==
 
 = 1.0 =
-* https://media.giphy.com/media/qUUyTJkYe0I1O/giphy.gif
+* https://giphy.com/gifs/luD6nKBLMolt6/html5
