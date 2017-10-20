@@ -1,4 +1,4 @@
-=== GM Community Gallery ===
+=== GM HTML Carousel ===
 Contributors: gabrielmioni
 Plugin URI: http://gabrielmioni.com/gm-html-carousel/
 Tags: testimonials, slider, carousel, html, JavaScript, jQuery, shortcodes
