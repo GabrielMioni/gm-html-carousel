@@ -24,31 +24,31 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 define('GM_CAROUSEL_VERSION', 1);
 
-add_action( 'wp_enqueue_scripts', 'gm_carousel_font_awesome' );
-function gm_carousel_font_awesome() {
+add_action( 'wp_enqueue_scripts', 'gm_html_carousel_register_font_awesome' );
+function gm_html_carousel_register_font_awesome() {
     wp_register_style('gm-font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', GM_CAROUSEL_VERSION, 'all');
 }
 
-add_action( 'wp_enqueue_scripts', 'gm_register_carousel_css');
-function gm_register_carousel_css() {
+add_action( 'wp_enqueue_scripts', 'gm_html_carousel_register_css');
+function gm_html_carousel_register_css() {
     wp_register_style( 'gm-carousel-css', plugins_url( '/css/gm-carousel.css', __FILE__ ), array(), GM_CAROUSEL_VERSION, 'all' );
 }
 
-add_action( 'wp_enqueue_scripts', 'gm_carousel_js');
-function gm_carousel_js() {
+add_action( 'wp_enqueue_scripts', 'gm_html_carousel_register_js');
+function gm_html_carousel_register_js() {
     wp_register_script( 'gm-carousel-js',  plugins_url( 'js/gm-carousel.js', __FILE__ ), array('jquery'), GM_CAROUSEL_VERSION, true );
 }
 
-add_action( 'wp_enqueue_scripts', 'gm_register_tocca');
-function gm_register_tocca() {
+add_action( 'wp_enqueue_scripts', 'gm_html_carousel_register_tocca');
+function gm_html_carousel_register_tocca() {
     wp_register_script( 'gm-tocca-js',  plugins_url( 'js/tocca/Tocca.min.js', __FILE__ ), array('jquery'), GM_CAROUSEL_VERSION, true );
 }
 
-add_shortcode('gm_carousel', 'carousel');
-function carousel( $atts, $content = null )
+add_shortcode('gm_carousel', 'gm_html_carousel');
+function gm_html_carousel( $atts, $content = null )
 {
     // https://giphy.com/gifs/luD6nKBLMolt6/html5
-    $attributes = set_attributes($atts);
+    $attributes = gm_html_carousel_set_attributes($atts);
 
     if (isset($attributes['delay'])) {
         $delay = $attributes['delay'];
@@ -78,12 +78,12 @@ function carousel( $atts, $content = null )
 
     $text_array = isset( $matches[5] ) ? $matches[5] : array();
 
-    $build_carousel = new \gm_build\build_carousel($text_array, $attributes);
+    $build_carousel = new \gm_html_carousel\build_carousel($text_array, $attributes);
 
-    echo $build_carousel->return_ul_html();
+    echo $build_carousel->return_carousel();
 }
 
-function set_attributes($atts)
+function gm_html_carousel_set_attributes($atts)
 {
     $default = array();
     $default['width'] = 600;
