@@ -49,6 +49,16 @@ function carousel( $atts, $content = null )
 {
     $attributes = set_attributes($atts);
 
+    if (isset($attributes['delay']))
+    {
+        $delay = $attributes['delay'];
+        $params = array('delay'=>$delay);
+    } else {
+        $params = array('delay'=>6);
+    }
+
+    wp_localize_script('gm-carousel-js', 'gm_js', $params);
+
     wp_enqueue_style('gm-carousel-css');
     wp_enqueue_style('gm-font-awesome');
     wp_enqueue_script('gm-carousel-js');
@@ -76,8 +86,7 @@ function set_attributes($atts) {
         return array();
     }
 
-    if ( empty($atts) )
-    {
+    if ( empty($atts) ) {
         return array();
     }
 
@@ -86,7 +95,7 @@ function set_attributes($atts) {
 
     foreach ($atts as $key=>$value)
     {
-        if ($key === 'height' || $key === 'width')
+        if ($key === 'height' || $key === 'width' || $key === 'delay')
         {
             $attributes_out[$key] = intval($value);
         }

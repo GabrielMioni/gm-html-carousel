@@ -125,6 +125,11 @@
         clearTimeout(tid);
     }
 
+    function set_delay() {
+        var delay = gm_js.delay;
+        return parseInt(delay) * 1000;
+    }
+
     function get_number_from_id(id) {
         var id_num = id.replace(/[^0-9]/gi, '');
         return parseInt(id_num, 10);
@@ -132,7 +137,9 @@
 
     // Start the infinite loop
     var li_array = get_li_array();
-    var tid = setTimeout(function() { rotate_carousel(li_array); }, 5000);
+    var delay = set_delay();
+    console.log(delay);
+    var tid = setTimeout(function() { rotate_carousel(li_array); }, delay);
 
     // Navigate
     button_click(li_array);
