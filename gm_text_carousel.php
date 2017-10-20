@@ -56,9 +56,7 @@ function carousel( $atts, $content = null )
         $delay = 6;
     }
 
-//    $is_mobile = wp_is_mobile() === true ? 1 : 0;
-
-    $is_mobile = 1;
+    $is_mobile = wp_is_mobile() === true ? 1 : 0;
 
     if ($is_mobile === 1) {
         wp_enqueue_script('gm-tocca-js');
