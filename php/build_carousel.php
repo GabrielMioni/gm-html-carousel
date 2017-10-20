@@ -1,6 +1,6 @@
 <?php
 
-namespace gm_build;
+namespace gm_html_carousel;
 
 class build_carousel
 {
@@ -61,7 +61,7 @@ class build_carousel
         return $button_html;
     }
 
-    public function return_ul_html()
+    public function return_carousel()
     {
         return $this->carousel;
     }
