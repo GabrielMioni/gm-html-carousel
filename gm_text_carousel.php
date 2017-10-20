@@ -39,23 +39,32 @@ function gm_carousel_js() {
     wp_register_script( 'gm-carousel-js',  plugins_url( 'js/gm-carousel.js', __FILE__ ), array('jquery'), GM_CAROUSEL_VERSION, true );
 }
 
-add_shortcode('gm_carousel_item', 'carousel_text');
-function carousel_text( ) {
-    // I am an empty callback and don't do anything :(
+add_action( 'wp_enqueue_scripts', 'gm_register_tocca');
+function gm_register_tocca() {
+    wp_register_script( 'gm-tocca-js',  plugins_url( 'js/tocca/Tocca.min.js', __FILE__ ), array('jquery'), GM_CAROUSEL_VERSION, true );
 }
 
 add_shortcode('gm_carousel', 'carousel');
 function carousel( $atts, $content = null )
 {
+    // https://giphy.com/gifs/luD6nKBLMolt6/html5
     $attributes = set_attributes($atts);
 
-    if (isset($attributes['delay']))
-    {
+    if (isset($attributes['delay'])) {
         $delay = $attributes['delay'];
-        $params = array('delay'=>$delay);
     } else {
-        $params = array('delay'=>6);
+        $delay = 6;
     }
+
+//    $is_mobile = wp_is_mobile() === true ? 1 : 0;
+
+    $is_mobile = 1;
+
+    if ($is_mobile === 1) {
+        wp_enqueue_script('gm-tocca-js');
+    }
+
+    $params = array('delay'=>$delay, 'is_mobile'=>$is_mobile);
 
     wp_localize_script('gm-carousel-js', 'gm_js', $params);
 
@@ -76,8 +85,8 @@ function carousel( $atts, $content = null )
     echo $build_carousel->return_ul_html();
 }
 
-function set_attributes($atts) {
-
+function set_attributes($atts)
+{
     $default = array();
     $default['width'] = 600;
     $default['height'] = 175;
